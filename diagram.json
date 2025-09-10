@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "author": "Ashutosh Sharan Srivastava",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard-mini", "id": "bb1", "top": 56.2, "left": -60, "attrs": {} },
+    {
+      "type": "board-pi-pico-w",
+      "id": "pico",
+      "top": 0,
+      "left": 0,
+      "attrs": { "builder": "pico-sdk" }
+    },
+    { "type": "wokwi-a4988", "id": "drv1", "top": -72, "left": -100.8, "attrs": {} },
+    { "type": "wokwi-a4988", "id": "drv2", "top": -72, "left": 148.8, "attrs": {} },
+    {
+      "type": "wokwi-stepper-motor",
+      "id": "stepper1",
+      "top": -140.39,
+      "left": -258.77,
+      "attrs": { "size": "17" }
+    },
+    {
+      "type": "wokwi-stepper-motor",
+      "id": "stepper2",
+      "top": -159.59,
+      "left": 250.03,
+      "attrs": { "size": "17" }
+    },
+    { "type": "wokwi-mpu6050", "id": "imu1", "top": -188.18, "left": -26.48, "attrs": {} },
+    { "type": "board-ds18b20", "id": "temp1", "top": -327.53, "left": -159.12, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic1",
+      "top": -334.5,
+      "left": -61.7,
+      "attrs": { "distance": "299" }
+    },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": -260.5, "left": 172.6, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -176.4,
+      "left": 109.4,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -120.85,
+      "left": 124.8,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -187.2,
+      "left": -144.55,
+      "rotate": 90,
+      "attrs": { "value": "4700" }
+    }
+  ],
+  "connections": [
+    [ "pico:GP0", "$serialMonitor:RX", "", [] ],
+    [ "pico:GP1", "$serialMonitor:TX", "", [] ],
+    [ "pico:VBUS", "bb1:17t.a", "red", [ "h0" ] ],
+    [ "pico:3V3", "bb1:16t.e", "green", [ "h23.06", "v-3.25" ] ],
+    [ "pico:GND.8", "bb1:17b.f", "black", [ "h42.26", "v35.15" ] ],
+    [ "drv1:VMOT", "bb1:17t.b", "green", [ "h0" ] ],
+    [ "drv2:VMOT", "bb1:17t.c", "green", [ "h19.35", "v-9.52", "h-105.6" ] ],
+    [ "drv1:GND.1", "pico:GND.8", "black", [ "v0" ] ],
+    [ "drv2:GND.1", "bb1:17b.f", "black", [ "v0" ] ],
+    [ "drv1:VDD", "pico:3V3", "green", [ "h0" ] ],
+    [ "drv2:VDD", "pico:3V3", "green", [ "h0" ] ],
+    [ "drv1:SLEEP", "pico:3V3", "green", [ "h-28.8", "v67.2", "h9.6" ] ],
+    [ "drv2:SLEEP", "pico:3V3", "green", [ "h-28.8", "v67.2" ] ],
+    [ "drv1:RESET", "pico:3V3", "green", [ "h-38.4", "v86.4" ] ],
+    [ "drv2:RESET", "pico:3V3", "green", [ "h-38.4", "v9.6" ] ],
+    [ "drv1:DIR", "pico:GP16", "green", [ "h-9.6", "v211.2", "h19.2" ] ],
+    [ "drv2:DIR", "pico:GP18", "green", [ "h-9.6", "v163.2" ] ],
+    [ "drv1:STEP", "pico:GP19", "green", [ "h-19.2", "v163.2" ] ],
+    [ "drv2:STEP", "pico:GP17", "green", [ "h-19.2", "v9.6" ] ],
+    [ "stepper1:A+", "drv1:1A", "green", [ "v0" ] ],
+    [ "stepper1:A-", "drv1:1B", "green", [ "v0" ] ],
+    [ "stepper1:B+", "drv1:2A", "green", [ "v0" ] ],
+    [ "stepper1:B-", "drv1:2B", "green", [ "v0" ] ],
+    [ "drv2:1A", "stepper2:A+", "green", [ "h28.95", "v86.48", "h67.2" ] ],
+    [ "drv2:2A", "stepper2:B+", "green", [ "h38.55", "v86.48", "h9.6" ] ],
+    [ "drv2:2B", "stepper2:B-", "green", [ "h38.55", "v86.48", "h105.6" ] ],
+    [ "drv2:1B", "stepper2:A-", "green", [ "h19.35", "v48.08", "h96" ] ],
+    [ "imu1:VCC", "pico:3V3", "red", [ "v0", "h48.08" ] ],
+    [ "imu1:GND", "pico:GND.8", "black", [ "v-28.8", "h48.08", "v192" ] ],
+    [ "imu1:SDA", "pico:GP4", "green", [ "v-19.2", "h-76.72", "v268.8", "h-28.8", "v48" ] ],
+    [ "imu1:SCL", "pico:GP5", "green", [ "v-38.4", "h-105.52", "v326.4", "h-19.2" ] ],
+    [ "temp1:GND", "pico:GND.8", "black", [ "v0" ] ],
+    [ "ultrasonic1:GND", "pico:GND.8", "black", [ "v0" ] ],
+    [ "ultrasonic1:VCC", "pico:3V3", "red", [ "v0" ] ],
+    [ "ultrasonic1:TRIG", "pico:GP7", "green", [ "v0" ] ],
+    [ "ultrasonic1:ECHO", "pico:GP6", "green", [ "v0" ] ],
+    [ "pot1:GND", "pico:GND.8", "black", [ "v0" ] ],
+    [ "pot1:VCC", "pico:3V3", "red", [ "v0" ] ],
+    [ "pot1:SIG", "pico:GP26", "green", [ "v0" ] ],
+    [ "led1:A", "r2:1", "green", [ "v0" ] ],
+    [ "r2:2", "pico:GP21", "green", [ "v230.4", "h-356.4" ] ],
+    [ "led1:C", "pico:GND.8", "black", [ "v0" ] ],
+    [ "temp1:DQ", "r1:1", "green", [ "v57.6" ] ],
+    [ "r1:2", "temp1:VCC", "red", [ "h28.8", "v-10.8" ] ],
+    [ "temp1:DQ", "pico:GP22", "green", [ "v182.4", "h105.6" ] ]
+  ],
+  "dependencies": {}
+}
